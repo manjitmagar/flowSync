@@ -6,13 +6,13 @@ class TrafficLight:
     def __init__(self, rect, is_rectangle_a=True, initial_state="red"):
         self.rect = rect
         if is_rectangle_a:
-            self.timer_red = 5
-            self.timer_yellow = 2
-            self.timer_green = 5
+            self.timer_red = 1
+            self.timer_yellow = 1
+            self.timer_green = 1
         else:
-            self.timer_red = 5
-            self.timer_yellow = 2
-            self.timer_green = 5
+            self.timer_red = 1
+            self.timer_yellow = 1
+            self.timer_green = 1
 
         self.timer_cycle = self.timer_red + self.timer_yellow + self.timer_green
 
@@ -40,9 +40,9 @@ class TrafficLights:
 
         self.black = (0, 0, 0)
         self.white = (255, 255, 255)
-        self.red = (255, 0, 0)
+        self.green = (255, 0, 0)
         self.yellow = (255, 255, 0)
-        self.green = (0, 255, 0)
+        self.red = (0, 255, 0)
 
         self.line_y = height // 2
 
@@ -60,15 +60,15 @@ class TrafficLights:
 
         self.clock = pygame.time.Clock()
 
-        self.emergency_state = False  # Default to no emergency
+        self.emergency_state = False  
 
     def set_emergency_state(self, is_emergency):
         if is_emergency:
-            # Turn all traffic lights to red during emergency
-            self.traffic_light_a1.current_state = "red"
-            self.traffic_light_a2.current_state = "red"
-            self.traffic_light_b1.current_state = "red"
-            self.traffic_light_b2.current_state = "red"
+            # Turning all traffic lights to green during emergency
+            self.traffic_light_a1.current_state = "green"
+            self.traffic_light_a2.current_state = "green"
+            self.traffic_light_b1.current_state = "green"
+            self.traffic_light_b2.current_state = "green"
 
     def update(self):
         elapsed_seconds = self.clock.tick(60) / 1000.0  
@@ -87,7 +87,7 @@ class TrafficLights:
                 traffic_light.current_state = self.get_next_state(traffic_light.current_state)
                 traffic_light.current_timer = traffic_light.get_current_timer()
         else:
-            traffic_light.current_state = "red"  # Set the light to red during emergency
+            traffic_light.current_state = "green"  # Set the light to red during emergency
 
     def get_next_state(self, current_state):
         states = ["red", "yellow", "green"]
